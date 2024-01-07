@@ -1,1 +1,0 @@
-{"uuid":"30c7738e-410f-4ec7-bb60-795e82493147","name":"com.example.qung.MainPage","children":["7308ab17-e63a-4730-ab0b-62996d39e941"],"befores":[{"name":"setUpDriver","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1703428546239,"stop":1703428554737}],"afters":[],"start":1703428546150,"stop":1703428555068}

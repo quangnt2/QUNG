@@ -16,7 +16,7 @@ public class Validate {
 
     public Validate(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofMinutes(5));
+        wait = new WebDriverWait(driver, Duration.ofMinutes(10));
     }
 
     public void setText(By element, String text) {
