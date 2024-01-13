@@ -14,10 +14,7 @@ public class LoginTest extends BaseSetup {
         login.navigateToLoginURL();
     }
 
-    @AfterClass
-    public void CloseDriver() {
-        driver.quit();
-    }
+
 
     public void loginExcel() throws InterruptedException {
         login.loginExcel();

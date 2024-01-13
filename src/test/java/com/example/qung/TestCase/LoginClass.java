@@ -14,16 +14,11 @@ import org.testng.annotations.Test;
 public class LoginClass extends BaseSetup {
 
     private Login login;
-    @Test
     public void login() throws InterruptedException {
         login = new Login(getDriver());
+        Thread.sleep(4000);
         login.navigateToLoginURL();
         Thread.sleep(4000);
-        login.login("admin", "1d23");
-    }
-    @AfterMethod
-    public void afterMethod(ITestResult result) {
-        takeScreenshotService screenshotService = new takeScreenshotService();
-        screenshotService.takeScreenshotOnFailue(result);
+        login.loginAdmin("admin", "123");
     }
 }

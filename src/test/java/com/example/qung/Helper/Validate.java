@@ -8,7 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.*;
+import java.util.Random;
+import java.util.UUID;
 
 public class Validate {
     public WebDriver driver;
@@ -51,7 +52,7 @@ public class Validate {
         String[] LastName = {"Nguyên", "Trấn", "Lê", "Minh", "Phạm", "Hồng", "Hoàng", "Quang", "Vũ", "Đặng", "Văn", "Mai", "Lý", "Trịnh"};
         String name1 = FistName[random.nextInt(FistName.length)];
         String name2 = LastName[random.nextInt(LastName.length)];
-        return name1 + name2;
+        return name1 + " " + name2;
     }
 
     public static String RamdomEmail() {
@@ -76,6 +77,15 @@ public class Validate {
         Random random = new Random();
         String randomage = String.valueOf(random.nextInt(maxage - minage + 1) + minage);
         return randomage;
+    }
+
+    public static String randomId() {
+//        Random random = new Random();
+//        String RamdonId = String.valueOf(random.nextInt(10000000));
+        UUID uuid = UUID.randomUUID();
+        String id = uuid.toString().replace("-", "").substring(5, 10);
+//        System.out.println(string);
+        return id;
     }
 }
 

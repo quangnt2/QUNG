@@ -8,6 +8,8 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
 public class BaseSetup {
@@ -42,8 +44,8 @@ public class BaseSetup {
                 System.out.println("Setup Edgedriver success");
         }
         if (driver != null) {
-            System.out.println("BrowserVersion "+ getBrowserVersion(driver));
-            System.out.println("BrowserName " +getBrowserName(driver));
+            System.out.println("BrowserVersion " + getBrowserVersion(driver));
+            System.out.println("BrowserName " + getBrowserName(driver));
         }
     }
 
@@ -61,6 +63,11 @@ public class BaseSetup {
         Capabilities capabilities = ((RemoteWebDriver) driver).getCapabilities();
         String name = capabilities.getBrowserName();
         return name;
+    }
+@AfterMethod
+    public void afterMethod(ITestResult testResult) {
+        takeScreenshotService screenshotServic = new takeScreenshotService();
+        screenshotServic.takeScreenshotOnFailue(testResult);
     }
 }
 

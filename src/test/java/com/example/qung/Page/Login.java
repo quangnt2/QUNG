@@ -41,7 +41,23 @@ public class Login {
             fail("lỗi nha");
         }
     }
-
+    public void loginAdmin(String User, String Pass) throws InterruptedException {
+        validate.setText(element.user, User);
+        validate.setText(element.pass, Pass);
+        validate.Click(element.submit);
+    }
+    public static void main(String[] args) {
+        ExcelReaderService excelReaderService = new ExcelReaderService();
+        int usernameColumnIndex = 0;
+        int passwordColumnIndex = 1;
+        String excelFile = "C:\\Users\\admin\\OneDrive\\Máy tính\\Book1.xlsx";
+        List<List<String>> excelData = excelReaderService.readExcel(excelFile);
+        for (List<String> row : excelData) {
+            String user = row.get(usernameColumnIndex);
+            String pass = row.get(passwordColumnIndex);
+            System.out.println(user + "" + pass);
+        }
+    }
     public void loginExcel() throws InterruptedException {
         ExcelReaderService excelReaderService = new ExcelReaderService();
         String excelFile = "C:\\Users\\admin\\OneDrive\\Máy tính\\Book1.xlsx";
