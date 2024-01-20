@@ -99,7 +99,9 @@ public class BaseUnit {
         WebElement element = driver.findElement(baseUnitsElement.btnCreated);
         if (element.isDisplayed()) {
             validate.Click(baseUnitsElement.btnCreated);
-            Thread.sleep(5000);
+            Thread.sleep(2000);
+            getTextfield();
+            Thread.sleep(4000);
             validate.setText(baseUnitsElement.Id, Validate.randomId());
             validate.setText(baseUnitsElement.Name, Validate.RamdomName());
             validate.setText(baseUnitsElement.Email, Validate.RamdomEmail());
@@ -122,8 +124,11 @@ public class BaseUnit {
         String getName = list.get(ramdomIndex);
         try {
             validate.setText(baseUnitsElement.filterText, getName);
+            WebElement table2 = driver.findElement(baseUnitsElement.filterText);
+            String text = table2.getText();
+            System.out.println(text);
             validate.Click(baseUnitsElement.searhBtn);
-            Thread.sleep(3000);
+            Thread.sleep(2000);
             String data = "";
             WebElement table = driver.findElement(By.id("pr_id_5-table"));
             List<WebElement> rows = table.findElements(By.tagName("tr"));
@@ -133,11 +138,7 @@ public class BaseUnit {
                     data += cell.getText() + "\t";
                 }
                 data += "\n";
-
             }
-            System.out.println(data);
-
-
         } catch (NoSuchElementException e) {
 
         } catch (InterruptedException e) {
@@ -146,8 +147,9 @@ public class BaseUnit {
     }
 
     public void clearfilter() throws SQLException, InterruptedException {
+        Thread.sleep(2000);
         validate.Click(baseUnitsElement.Clearfilter);
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         try {
             WebElement element = driver.findElement(baseUnitsElement.countBaseUnit);
             String text = element.getText();
@@ -155,7 +157,6 @@ public class BaseUnit {
             String numberString = parts[0]; /// Lấy giá trị trong mảng
             Assert.assertEquals(numberString, sqlQuery());
         } catch (NoSuchElementException e) {
-
         }
     }
 
@@ -166,8 +167,39 @@ public class BaseUnit {
 
     }
 
-    public void deleteBaseUnitFail() throws SQLException {
+    public void deleteBaseUnit() throws SQLException, InterruptedException {
         searchBaseUint();
         validate.Click(baseUnitsElement.deletebtn);
+        validate.Click(baseUnitsElement.cancel);
+        Thread.sleep(2000);
+        try {
+            WebElement webElement = driver.findElement(baseUnitsElement.cancel);
+            if (webElement.isDisplayed()) {
+                fail("Popup không được đóng sau khi nhấn cancel");
+            }
+        } catch (NoSuchElementException e) {
+            searchBaseUint();
+            validate.Click(baseUnitsElement.deletebtn);
+            validate.Click(baseUnitsElement.config);
+            Thread.sleep(1000);
+            WebElement element = driver.findElement(By.xpath("//div[@id='swal2-html-container']"));
+            String mess = "Xóa thành công";
+            String response = element.getText();
+            if (response.equals(mess)) {
+                System.out.println("Xóa thành công");
+            } else {
+                System.out.println("Dữ liệu đã phát sinh");
+            }
+        }
+    }
+    public void getTextfield() {
+        String[] textField = {"Mã", "Tên đơn vị cơ sở", "Email", "Số điện thoại", "Địa chỉ1"};
+        WebElement layout = driver.findElement(By.xpath("//body/app-root[1]/ng-component[1]/div[1]/default-layout[1]/div[1]/div[1]/div[2]/div[2]/ng-component[1]/div[1]/div[2]/div[1]/div[1]/createoreditbaseunitmodal[1]/div[1]/div[1]/div[1]/form[1]/div[2]"));
+        List<WebElement> laybel = layout.findElements(By.tagName("label"));
+        for (int i = 0; i < textField.length; i++) {
+            WebElement getIndex = laybel.get(i);
+            String getText = getIndex.getText();
+            Assert.assertEquals(textField[i], getText);
+        }
     }
 }

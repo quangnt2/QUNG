@@ -4,6 +4,7 @@ package com.example.qung.Page;
 import com.example.qung.Element.LoginElement;
 import com.example.qung.Helper.ExcelReaderService;
 import com.example.qung.Helper.Validate;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,6 +27,8 @@ public class Login {
 
     public void navigateToLoginURL() {
         driver.get("http://103.138.113.158:9904");
+        validate.waitForPageToLoad(driver, 10, "VN-NARIC");
+
     }
 
     public void login(String User, String Pass) throws InterruptedException {
@@ -37,15 +40,19 @@ public class Login {
         String url = driver.getCurrentUrl();
         if (url.equals("http://103.138.113.158:9904/app/record/record-list")) {
             Logout(driver);
-        }else {
+        } else {
             fail("lỗi nha");
         }
     }
+
     public void loginAdmin(String User, String Pass) throws InterruptedException {
+        Validate validate1 = new Validate(driver);
+        WebElement searchBox = validate1.waitForElementToBeVisible(driver, 10, element.user);
         validate.setText(element.user, User);
         validate.setText(element.pass, Pass);
         validate.Click(element.submit);
     }
+
     public static void main(String[] args) {
         ExcelReaderService excelReaderService = new ExcelReaderService();
         int usernameColumnIndex = 0;
@@ -58,6 +65,7 @@ public class Login {
             System.out.println(user + "" + pass);
         }
     }
+
     public void loginExcel() throws InterruptedException {
         ExcelReaderService excelReaderService = new ExcelReaderService();
         String excelFile = "C:\\Users\\admin\\OneDrive\\Máy tính\\Book1.xlsx";
@@ -132,13 +140,14 @@ public class Login {
         }
 
     }
+
     public void checkStatusBtn() throws InterruptedException {
         navigateToLoginURL();
         Thread.sleep(3000);
         WebElement webElement = driver.findElement(element.submit);
         String aaa = webElement.getAttribute("disabled");
         System.out.println(aaa);
-        if(webElement.isEnabled()){
+        if (webElement.isEnabled()) {
             System.out.println("1");
         } else {
             System.out.println("2");

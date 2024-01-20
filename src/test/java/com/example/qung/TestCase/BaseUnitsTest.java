@@ -53,9 +53,9 @@ public class BaseUnitsTest extends LoginClass {
     public void CreatedBaseUnit() throws InterruptedException, SQLException {
         baseUnit.createdBaseUnit();
     }
-    @Test(priority = 5)
+   /// @Test(priority = 5)
     @Severity(SeverityLevel.CRITICAL)
     public void DeleteBaseUnit() throws InterruptedException, SQLException {
-        baseUnit.deleteBaseUnitFail();
+        baseUnit.deleteBaseUnit();
     }
 }

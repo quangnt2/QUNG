@@ -19,7 +19,14 @@ public class Validate {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofMinutes(10));
     }
-
+    public  void waitForPageToLoad(WebDriver driver, int timeoutInSeconds, String pageTitle) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+        wait.until(ExpectedConditions.titleIs(pageTitle));
+    }
+    public static WebElement waitForElementToBeVisible(WebDriver driver, int timeoutInSeconds, By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
     public void setText(By element, String text) {
         Scroll(element);
         wait.until(ExpectedConditions.elementToBeClickable(element));
