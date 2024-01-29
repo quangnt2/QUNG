@@ -7,7 +7,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 
@@ -19,14 +22,17 @@ public class Validate {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofMinutes(10));
     }
-    public  void waitForPageToLoad(WebDriver driver, int timeoutInSeconds, String pageTitle) {
+
+    public void waitForPageToLoad(WebDriver driver, int timeoutInSeconds, String pageTitle) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.until(ExpectedConditions.titleIs(pageTitle));
     }
+
     public static WebElement waitForElementToBeVisible(WebDriver driver, int timeoutInSeconds, By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
+
     public void setText(By element, String text) {
         Scroll(element);
         wait.until(ExpectedConditions.elementToBeClickable(element));
@@ -93,6 +99,26 @@ public class Validate {
         String id = uuid.toString().replace("-", "").substring(5, 10);
 //        System.out.println(string);
         return id;
+    }
+
+    public static String randomInt() {
+        Random random = new Random();
+        String randomInt = String.valueOf(random.nextInt(500));
+        return randomInt;
+    }
+
+    public static void main(String[] args) {
+        String ram = randomOfficialLetterNumber();
+        System.out.println(ram);
+    }
+
+    public static String randomOfficialLetterNumber() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE_yyyy_MM_dd", new Locale("vi", "VN"));
+        String date = dateFormat.format(new Date());
+        Random random = new Random();
+        String randomInt = String.valueOf(random.nextInt(100));
+        String randomOfficialLetterNumber = "Công văn số_" + randomInt +"_" + date ;
+        return randomOfficialLetterNumber;
     }
 }
 

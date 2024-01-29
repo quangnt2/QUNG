@@ -4,6 +4,7 @@
         <classes>
             <class name="com.example.qung.TestCase.LoginTest"/>
             <class name="com.example.qung.TestCase.BaseUnitsTest"/>
+            <class name="com.example.qung.TestCase.Record"/>
         </classes>
     </test>
 </suite>

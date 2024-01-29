@@ -101,7 +101,7 @@ public class BaseUnit {
             validate.Click(baseUnitsElement.btnCreated);
             Thread.sleep(2000);
             getTextfield();
-            Thread.sleep(4000);
+            Thread.sleep(2000);
             validate.setText(baseUnitsElement.Id, Validate.randomId());
             validate.setText(baseUnitsElement.Name, Validate.RamdomName());
             validate.setText(baseUnitsElement.Email, Validate.RamdomEmail());
@@ -124,9 +124,6 @@ public class BaseUnit {
         String getName = list.get(ramdomIndex);
         try {
             validate.setText(baseUnitsElement.filterText, getName);
-            WebElement table2 = driver.findElement(baseUnitsElement.filterText);
-            String text = table2.getText();
-            System.out.println(text);
             validate.Click(baseUnitsElement.searhBtn);
             Thread.sleep(2000);
             String data = "";
@@ -136,6 +133,7 @@ public class BaseUnit {
                 List<WebElement> cells = row.findElements(By.xpath(".//td[3]"));
                 for (WebElement cell : cells) {
                     data += cell.getText() + "\t";
+                    System.out.println(data);
                 }
                 data += "\n";
             }
@@ -159,14 +157,6 @@ public class BaseUnit {
         } catch (NoSuchElementException e) {
         }
     }
-
-    public void deleteBaseUnitPass() {
-        /// chọn 1 đv trong danh sách; 1 nhấn xóa, 2 xác nhận xóa
-        /// check data sau khi nhấn hủy, xác nhận
-        /// check trạng thái xóa trong db
-
-    }
-
     public void deleteBaseUnit() throws SQLException, InterruptedException {
         searchBaseUint();
         validate.Click(baseUnitsElement.deletebtn);

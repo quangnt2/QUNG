@@ -1,16 +1,15 @@
 package com.example.qung.TestCase;
 
-import com.example.qung.Page.User;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class Record extends LoginClass {
-    private User User;
+    private com.example.qung.Page.Record User;
     @BeforeClass
     public void setUp() {
-        User = new User(getDriver());
+        User = new com.example.qung.Page.Record(getDriver());
     }
     @Test(priority = 0)
     @Severity(SeverityLevel.CRITICAL)
