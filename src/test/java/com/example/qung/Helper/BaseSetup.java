@@ -68,6 +68,7 @@ public class BaseSetup {
     public void afterMethod(ITestResult testResult) {
         takeScreenshotService screenshotServic = new takeScreenshotService();
         screenshotServic.takeScreenshotOnFailue(testResult);
+        driver.close();
     }
 }
 

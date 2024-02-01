@@ -31,9 +31,9 @@ public class record {
         driver.get("http://103.138.113.158:9904/app/record/record-list");
     }
 
-    public void s() throws InterruptedException {
 
-        WebElement div = driver.findElement(By.xpath("//body/app-root[1]/ng-component[1]/div[1]/default-layout[1]/div[1]/div[1]/div[2]/div[2]/app-create-record[1]/div[1]/div[2]/div[1]/form[1]/p-accordion[1]/div[1]/p-accordiontab[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/p-dropdown[1]/div[1]/div[3]/div[2]"));
+    public void s() throws InterruptedException {
+        WebElement mess = driver.findElement(By.xpath("//div[@id='swal2-html-container']"));
     }
 
     public void checkButonInDetailRecord() throws InterruptedException {
@@ -82,6 +82,36 @@ public class record {
     }
 
     public void XoaHoSo() throws SQLException, InterruptedException {
+        Thread.sleep(2000);
+        validation.Click(recordElement.Xoa);
+        WebElement element = driver.findElement(recordElement.PopupXacNhanXoa);
+        if (!element.isDisplayed()) {
+            Assert.fail("Không hiển thị popup xóa");
+        }
+        if (element.isDisplayed()) {
+            validation.Click(recordElement.HuyXacNhan);
+            Thread.sleep(1000);
+            try {
+                WebElement element2 = driver.findElement(recordElement.PopupXacNhanXoa);
+                if (element2.isDisplayed()) {
+                    Assert.fail("Chức năng hủy không hoạt động");
+                }
+            } catch (NoSuchElementException e) {
+                validation.Click(recordElement.Xoa);
+                validation.Click(recordElement.XacNhanXoa);
+                Thread.sleep(1000);
+                WebElement mess = driver.findElement(By.xpath("//div[@id='swal2-html-container']"));
+                String getText = mess.getText();
+                if (getText.equals("Xóa thành công")) {
+                    System.out.println(getText);
+                } else {
+                    Assert.fail(getText);
+                }
+            }
+        }
+    }
+
+    public void TimKiemHoSoTrangThaiNhap() throws SQLException, InterruptedException {
         List<String> ListDocumentNumber = query();
         List<String> List = new ArrayList<>();
         for (String string : ListDocumentNumber) {
@@ -91,6 +121,10 @@ public class record {
         int index = random.nextInt(List.size());
         String name = List.get(index);
         validation.setText(recordElement.queryControl, name);
+        Thread.sleep(3000);
+        WebElement element = driver.findElement(By.xpath("//tbody/tr[1]/td[2]"));
+        WebElement link = element.findElement(By.className("link"));
+        link.click();
     }
 
     public void creadRecord() throws InterruptedException {

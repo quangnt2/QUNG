@@ -24,12 +24,12 @@ public class RecordTest extends LoginClass {
         Thread.sleep(2000);
         record.getUrl();
         Thread.sleep(2000);
+        record.TimKiemHoSoTrangThaiNhap();
         record.XoaHoSo();
 //        record.creadRecord();
 //        record.checkButonInDetailRecord();
 //        record.GuiHoSo();
 //        record.getUrl();
-//        Thread.sleep();
 //        record.XoaHoSo();
     }
 

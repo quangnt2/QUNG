@@ -17,6 +17,9 @@ public class recordElement {
     public By listButonInStatusDraft = By.xpath("//body/app-root[1]/ng-component[1]/div[1]/default-layout[1]/div[1]/div[1]/div[2]/div[2]/app-edit-record[1]/div[1]/div[1]/div[1]");
     public By GuiHoSo = By.xpath("//button[contains(text(),'Gửi')]");
     public By Xoa = By.xpath("//button[contains(text(),'Xóa')]");
+    public By PopupXacNhanXoa = By.xpath("//body/div[1]/div[1]");
+    public By XacNhanXoa = By.xpath("//button[contains(text(),'Có')]");
+    public By HuyXacNhan = By.xpath("//body/div[1]/div[1]/div[6]/button[3]");
     public By Sua = By.xpath("button[contains(text(),'Sửa')]");
     public By QuayLai = By.xpath("//body/app-root[1]/ng-component[1]/div[1]/default-layout[1]/div[1]/div[1]/div[2]/div[2]/app-edit-record[1]/div[1]/div[1]/div[1]/button[1]");
 
