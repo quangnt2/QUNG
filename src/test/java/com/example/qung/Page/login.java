@@ -1,10 +1,9 @@
 package com.example.qung.Page;
 
 
-import com.example.qung.Element.LoginElement;
-import com.example.qung.Helper.ExcelReaderService;
-import com.example.qung.Helper.Validate;
-import org.openqa.selenium.By;
+import com.example.qung.element.loginElement;
+import com.example.qung.Helper.excelReaderService;
+import com.example.qung.Helper.validation;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,48 +12,48 @@ import java.util.List;
 
 import static org.testng.Assert.fail;
 
-public class Login {
+public class login {
     private WebDriver driver;
-    private Validate validate;
-    LoginElement element = new LoginElement();
+    private validation validation;
+    loginElement element = new loginElement();
 
-    public Login(WebDriver driver) {
+    public login(WebDriver driver) {
         this.driver = driver;
-        validate = new Validate(driver);
+        validation = new validation(driver);
 
     }
 
 
     public void navigateToLoginURL() {
         driver.get("http://103.138.113.158:9904");
-        validate.waitForPageToLoad(driver, 10, "VN-NARIC");
+        validation.waitForPageToLoad(driver, 10, "VN-NARIC");
 
     }
 
     public void login(String User, String Pass) throws InterruptedException {
-        Thread.sleep(3000);
-        validate.setText(element.user, User);
-        validate.setText(element.pass, Pass);
-        validate.Click(element.submit);
-        Thread.sleep(3000);
+        Thread.sleep(2000);
+        validation.setText(element.user, User);
+        validation.setText(element.pass, Pass);
+        validation.Click(element.submit);
+        Thread.sleep(2000);
         String url = driver.getCurrentUrl();
         if (url.equals("http://103.138.113.158:9904/app/record/record-list")) {
             Logout(driver);
         } else {
-            fail("lỗi nha");
+            fail("Đăng xuất thất bại sau khi đã đâng xuất");
         }
     }
 
     public void loginAdmin(String User, String Pass) throws InterruptedException {
-        Validate validate1 = new Validate(driver);
-        WebElement searchBox = validate1.waitForElementToBeVisible(driver, 10, element.user);
-        validate.setText(element.user, User);
-        validate.setText(element.pass, Pass);
-        validate.Click(element.submit);
+        validation validation1 = new validation(driver);
+        WebElement searchBox = validation1.waitForElementToBeVisible(driver, 10, element.user);
+        validation.setText(element.user, User);
+        validation.setText(element.pass, Pass);
+        validation.Click(element.submit);
     }
 
     public static void main(String[] args) {
-        ExcelReaderService excelReaderService = new ExcelReaderService();
+        excelReaderService excelReaderService = new excelReaderService();
         int usernameColumnIndex = 0;
         int passwordColumnIndex = 1;
         String excelFile = "C:\\Users\\admin\\OneDrive\\Máy tính\\Book1.xlsx";
@@ -67,7 +66,7 @@ public class Login {
     }
 
     public void loginExcel() throws InterruptedException {
-        ExcelReaderService excelReaderService = new ExcelReaderService();
+        excelReaderService excelReaderService = new excelReaderService();
         String excelFile = "C:\\Users\\admin\\OneDrive\\Máy tính\\Book1.xlsx";
         int usernameColumnIndex = 0;
         int passwordColumnIndex = 1;
@@ -77,19 +76,19 @@ public class Login {
                     passwordColumnIndex >= 0 && passwordColumnIndex <= excelData.size()) {
                 String user = row.get(usernameColumnIndex);
                 String pass = row.get(passwordColumnIndex);
-                validate.setText(element.user, user);
-                validate.setText(element.pass, pass);
-                validate.Click(element.submit);
+                validation.setText(element.user, user);
+                validation.setText(element.pass, pass);
+                validation.Click(element.submit);
                 Thread.sleep(3000);
                 String URL = driver.getCurrentUrl();
                 if (URL.equals("http://103.138.113.158:9904/app/record/record-list")) {
                     System.out.println(user + "/" + pass + " hợp lệ");
                     Logout(driver);
                     driver.get("http://103.138.113.158:9904/");
-                    Thread.sleep(3000);
+                    Thread.sleep(2000);
                 }
                 if (URL.equals("http://103.138.113.158:9904/account/login")) {
-                    validate.Click(element.config);
+                    validation.Click(element.config);
                 }
 
             }
@@ -97,22 +96,22 @@ public class Login {
     }
 
     public void Logout(WebDriver driver) {
-        validate.Click(element.btnProfile);
-        validate.Click(element.btnLogout);
+        validation.Click(element.btnProfile);
+        validation.Click(element.btnLogout);
     }
 
     public void loginAcountInActive(String user, String pass) throws InterruptedException {
-        Thread.sleep(4000);
-        validate.setText(element.user, user);
-        validate.setText(element.pass, pass);
-        validate.Click(element.submit);
+        Thread.sleep(2000);
+        validation.setText(element.user, user);
+        validation.setText(element.pass, pass);
+        validation.Click(element.submit);
         Thread.sleep(2000);
         try {
             WebElement elm = driver.findElement(element.swal2);
             if (elm.isDisplayed()) {
                 String getText = elm.getText();
                 System.out.println(getText);
-                validate.Click(element.config);
+                validation.Click(element.config);
             } else {
                 fail("Không hiển thị thông báo lỗi");
             }
@@ -128,9 +127,9 @@ public class Login {
     public void checkValidation(String user, String pass) throws InterruptedException {
         try {
             Thread.sleep(3000);
-            validate.setText(element.user, user);
-            validate.setText(element.pass, pass);
-            validate.Click(element.submit);
+            validation.setText(element.user, user);
+            validation.setText(element.pass, pass);
+            validation.Click(element.submit);
             WebElement statusButton = driver.findElement(element.submit);
             if (statusButton.isEnabled()) {
 

@@ -14,11 +14,11 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 
-public class Validate {
+public class validation {
     public WebDriver driver;
     public WebDriverWait wait;
 
-    public Validate(WebDriver driver) {
+    public validation(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofMinutes(10));
     }

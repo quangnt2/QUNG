@@ -1,8 +1,8 @@
-package com.example.qung.Element;
+package com.example.qung.element;
 
 import org.openqa.selenium.By;
 
-public class LoginElement {
+public class loginElement {
     public By user = By.name("userNameOrEmailAddress");
     public By pass = By.name("password");
     public By submit = By.xpath("//body/app-root[1]/ng-component[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/ng-component[1]/div[1]/form[1]/div[4]");

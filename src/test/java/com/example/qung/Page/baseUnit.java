@@ -1,8 +1,8 @@
 package com.example.qung.Page;
 
-import com.example.qung.Element.BaseUnitsElement;
 import com.example.qung.Helper.ConnectDatabase;
-import com.example.qung.Helper.Validate;
+import com.example.qung.Helper.validation;
+import com.example.qung.element.baseUnitsElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -19,14 +19,14 @@ import java.util.Random;
 
 import static org.testng.Assert.fail;
 
-public class BaseUnit {
+public class baseUnit {
     public WebDriver driver;
-    public Validate validate;
-    BaseUnitsElement baseUnitsElement = new BaseUnitsElement();
+    public validation validation;
+    com.example.qung.element.baseUnitsElement baseUnitsElement = new baseUnitsElement();
 
-    public BaseUnit(WebDriver driver) {
+    public baseUnit(WebDriver driver) {
         this.driver = driver;
-        validate = new Validate(driver);
+        validation = new validation(driver);
     }
 
     public void getURL() {
@@ -38,11 +38,7 @@ public class BaseUnit {
     public void URLConfig() {
         String currentUrl = driver.getCurrentUrl();
         String url = "http://103.138.113.158:9904/app/setting/base-units";
-        if (currentUrl.equals(url)) {
-            System.out.println(url);
-        } else {
-            fail("url không hợp lệ " + currentUrl);
-        }
+        Assert.assertEquals(currentUrl, url);
     }
 
     public void getTitle() throws InterruptedException {
@@ -67,13 +63,13 @@ public class BaseUnit {
     }
 
 
-    public static ArrayList<String> sqlQuery2() throws SQLException {
+    public static List<String> sqlQuery2() throws SQLException {
         ConnectDatabase database = new ConnectDatabase();
         Connection conm = database.getConnection();
         String query = "select \"Name\" from \"BaseUnits\" where \"IsDeleted\" = false";
         PreparedStatement statement = conm.prepareStatement(query);
         ResultSet rs = statement.executeQuery();
-        ArrayList<String> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         while (rs.next()) {
             String NameBaseUnit = rs.getString(1);
             list.add(NameBaseUnit);
@@ -98,23 +94,23 @@ public class BaseUnit {
     public void createdBaseUnit() throws InterruptedException, SQLException {
         WebElement element = driver.findElement(baseUnitsElement.btnCreated);
         if (element.isDisplayed()) {
-            validate.Click(baseUnitsElement.btnCreated);
+            validation.Click(baseUnitsElement.btnCreated);
             Thread.sleep(2000);
             getTextfield();
             Thread.sleep(2000);
-            validate.setText(baseUnitsElement.Id, Validate.randomId());
-            validate.setText(baseUnitsElement.Name, Validate.RamdomName());
-            validate.setText(baseUnitsElement.Email, Validate.RamdomEmail());
-            validate.setText(baseUnitsElement.Phone, Validate.ramdomPhone());
-            validate.setText(baseUnitsElement.Address, "Hà Nội");
-            validate.Click(baseUnitsElement.BtnCreated);
+            validation.setText(baseUnitsElement.Id, validation.randomId());
+            validation.setText(baseUnitsElement.Name, validation.RamdomName());
+            validation.setText(baseUnitsElement.Email, validation.RamdomEmail());
+            validation.setText(baseUnitsElement.Phone, validation.ramdomPhone());
+            validation.setText(baseUnitsElement.Address, "Hà Nội");
+            validation.Click(baseUnitsElement.BtnCreated);
         } else {
             fail("Test Faild");
         }
     }
 
     public void searchBaseUint() throws SQLException {
-        ArrayList<String> arrayList = sqlQuery2();
+        List<String> arrayList = sqlQuery2();
         List<String> list = new ArrayList<>();
         for (String value : arrayList) {
             list.add(value);
@@ -123,14 +119,14 @@ public class BaseUnit {
         int ramdomIndex = random.nextInt(list.size());
         String getName = list.get(ramdomIndex);
         try {
-            validate.setText(baseUnitsElement.filterText, getName);
-            validate.Click(baseUnitsElement.searhBtn);
+            validation.setText(baseUnitsElement.filterText, getName);
+            validation.Click(baseUnitsElement.searhBtn);
             Thread.sleep(2000);
             String data = "";
-            WebElement table = driver.findElement(By.id("pr_id_5-table"));
-            List<WebElement> rows = table.findElements(By.tagName("tr"));
+            WebElement table = driver.findElement(By.id("pr_id_5-table")); /// tìm table
+            List<WebElement> rows = table.findElements(By.tagName("tr"));//tìm oootj
             for (WebElement row : rows) {
-                List<WebElement> cells = row.findElements(By.xpath(".//td[3]"));
+                List<WebElement> cells = row.findElements(By.xpath(".//td[3]"));// lấy cột hàng thứ 3
                 for (WebElement cell : cells) {
                     data += cell.getText() + "\t";
                     System.out.println(data);
@@ -146,21 +142,22 @@ public class BaseUnit {
 
     public void clearfilter() throws SQLException, InterruptedException {
         Thread.sleep(2000);
-        validate.Click(baseUnitsElement.Clearfilter);
+        validation.Click(baseUnitsElement.Clearfilter); /// click vào xóa data tìm kiếm
         Thread.sleep(2000);
-        try {
+        try {/// check sau khi xóa data so bản ghi đã trar về mặc định chưa
             WebElement element = driver.findElement(baseUnitsElement.countBaseUnit);
             String text = element.getText();
             String[] parts = text.split("\\s+"); /// split tách text từ 1 chuỗi thành 1 mảng: VD Nguyễn Trọng Quang => "Nguyễn", "Trọng', "Quang"
-            String numberString = parts[0]; /// Lấy giá trị trong mảng
-            Assert.assertEquals(numberString, sqlQuery());
+            String numberString = parts[0]; /// Lấy index trong mảng
+            Assert.assertEquals(numberString, sqlQuery()); /// so sánh
         } catch (NoSuchElementException e) {
         }
     }
+
     public void deleteBaseUnit() throws SQLException, InterruptedException {
         searchBaseUint();
-        validate.Click(baseUnitsElement.deletebtn);
-        validate.Click(baseUnitsElement.cancel);
+        validation.Click(baseUnitsElement.deletebtn);
+        validation.Click(baseUnitsElement.cancel);
         Thread.sleep(2000);
         try {
             WebElement webElement = driver.findElement(baseUnitsElement.cancel);
@@ -169,8 +166,8 @@ public class BaseUnit {
             }
         } catch (NoSuchElementException e) {
             searchBaseUint();
-            validate.Click(baseUnitsElement.deletebtn);
-            validate.Click(baseUnitsElement.config);
+            validation.Click(baseUnitsElement.deletebtn);
+            validation.Click(baseUnitsElement.config);
             Thread.sleep(1000);
             WebElement element = driver.findElement(By.xpath("//div[@id='swal2-html-container']"));
             String mess = "Xóa thành công";
@@ -182,8 +179,9 @@ public class BaseUnit {
             }
         }
     }
+
     public void getTextfield() {
-        String[] textField = {"Mã", "Tên đơn vị cơ sở", "Email", "Số điện thoại", "Địa chỉ1"};
+        String[] textField = {"Mã", "Tên đơn vị cơ sở", "Email", "Số điện thoại", "Địa chỉ"};
         WebElement layout = driver.findElement(By.xpath("//body/app-root[1]/ng-component[1]/div[1]/default-layout[1]/div[1]/div[1]/div[2]/div[2]/ng-component[1]/div[1]/div[2]/div[1]/div[1]/createoreditbaseunitmodal[1]/div[1]/div[1]/div[1]/form[1]/div[2]"));
         List<WebElement> laybel = layout.findElements(By.tagName("label"));
         for (int i = 0; i < textField.length; i++) {

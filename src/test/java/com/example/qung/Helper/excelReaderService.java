@@ -8,7 +8,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExcelReaderService {
+public class excelReaderService {
     public static List<List<String>> readExcel(String excelFile) {
         DecimalFormat  decimalFormat = new DecimalFormat(); /// loại bỏ số thập phân
         List<List<String>> data = new ArrayList<>();
@@ -42,6 +42,4 @@ public class ExcelReaderService {
         }
         return data;
     }
-
-
 }

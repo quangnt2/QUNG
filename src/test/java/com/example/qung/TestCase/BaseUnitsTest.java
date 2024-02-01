@@ -1,6 +1,6 @@
 package com.example.qung.TestCase;
 
-import com.example.qung.Page.BaseUnit;
+import com.example.qung.Page.baseUnit;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.BeforeClass;
@@ -9,18 +9,18 @@ import org.testng.annotations.Test;
 import java.sql.SQLException;
 
 public class BaseUnitsTest extends LoginClass {
-    private BaseUnit baseUnit;
+    private com.example.qung.Page.baseUnit baseUnit;
 
     @BeforeClass
     public void Before() {
-        baseUnit = new BaseUnit(getDriver());
+        baseUnit = new baseUnit(getDriver());
     }
 
     @Test(priority = 0)
     @Severity(SeverityLevel.CRITICAL)
     public void getURL() throws InterruptedException {
         login();
-        Thread.sleep(4000);
+        Thread.sleep(3000);
         baseUnit.getURL();
     }
 
@@ -48,11 +48,13 @@ public class BaseUnitsTest extends LoginClass {
         baseUnit.getTitle();
         baseUnit.getCountBaseUnit();
     }
+
     @Test(priority = 5)
     @Severity(SeverityLevel.CRITICAL)
     public void CreatedBaseUnit() throws InterruptedException, SQLException {
         baseUnit.createdBaseUnit();
     }
+
     @Test(priority = 5)
     @Severity(SeverityLevel.CRITICAL)
     public void DeleteBaseUnit() throws InterruptedException, SQLException {

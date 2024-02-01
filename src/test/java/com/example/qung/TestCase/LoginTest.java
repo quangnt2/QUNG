@@ -1,23 +1,20 @@
 package com.example.qung.TestCase;
 
 import com.example.qung.Helper.BaseSetup;
-import com.example.qung.Page.Login;
+import com.example.qung.Page.login;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseSetup {
-    private Login login;
+    private com.example.qung.Page.login login;
 
     @BeforeClass
     public void setUp() {
-        login = new Login(getDriver());
+        login = new login(getDriver());
         login.navigateToLoginURL();
     }
-
-
     @Test
     @Severity(SeverityLevel.TRIVIAL)
     public void loginExcel() throws InterruptedException {
@@ -30,22 +27,22 @@ public class LoginTest extends BaseSetup {
     }
     @Test
     @Severity(SeverityLevel.TRIVIAL)
-    public void LoginAccountInActive() throws InterruptedException {
+    public void loginAccountInActive() throws InterruptedException {
         login.loginAcountInActive("LC", "123");
     }
     @Test
     @Severity(SeverityLevel.TRIVIAL)
-    public void NullUser() throws InterruptedException {
+    public void nullUser() throws InterruptedException {
         login.checkValidation("", "121");
     }
     @Test
     @Severity(SeverityLevel.TRIVIAL)
-    public void NullPass() throws InterruptedException {
+    public void nullPass() throws InterruptedException {
         login.checkValidation("vanthu", "");
     }
     @Test
     @Severity(SeverityLevel.TRIVIAL)
-    public void NullUserAndPass() throws InterruptedException {
+    public void nullUserAndPass() throws InterruptedException {
         login.checkValidation("", "");
     }
     @Test

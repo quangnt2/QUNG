@@ -1,8 +1,8 @@
-package com.example.qung.Element;
+package com.example.qung.element;
 
 import org.openqa.selenium.By;
 
-public class BaseUnitsElement {
+public class baseUnitsElement {
     public By btnCreated = By.xpath("//button[contains(text(),'Tạo mới')]");
     public By Id = By.name("Code");
     public By Name = By.name("Name");
