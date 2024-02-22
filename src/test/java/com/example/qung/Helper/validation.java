@@ -28,11 +28,6 @@ public class validation {
         wait.until(ExpectedConditions.titleIs(pageTitle));
     }
 
-    public static WebElement waitForElementToBeVisible(WebDriver driver, int timeoutInSeconds, By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
     public void setText(By element, String text) {
         Scroll(element);
         wait.until(ExpectedConditions.elementToBeClickable(element));
@@ -41,11 +36,11 @@ public class validation {
     }
 
     public void Scroll(By element) {
-        WebElement element1 = driver.findElement(element);
+        WebElement scroll = driver.findElement(element);
         if (element != null) {
             Actions actions = new Actions(driver);
-            actions.moveToElement(element1);
-            int Offset = element1.getSize().getHeight() / -2;
+            actions.moveToElement(scroll);
+            int Offset = scroll.getSize().getHeight() / -2;
             actions.moveByOffset(0, Offset);
             actions.perform();
         } else {
@@ -63,9 +58,9 @@ public class validation {
         Random random = new Random();
         String[] FistName = {"Nguyễn Văn", "Trần Thị", "Lê Minh", "Phạm Hồng", "Hoàng Quang", "Vũ Thị", "Đặng Văn", "Mai Thị", "Lý Văn", "Trịnh Thị"};
         String[] LastName = {"Nguyên", "Trấn", "Lê", "Minh", "Phạm", "Hồng", "Hoàng", "Quang", "Vũ", "Đặng", "Văn", "Mai", "Lý", "Trịnh"};
-        String name1 = FistName[random.nextInt(FistName.length)];
-        String name2 = LastName[random.nextInt(LastName.length)];
-        return name1 + " " + name2;
+        String nameFistName = FistName[random.nextInt(FistName.length)];
+        String nameLastName = LastName[random.nextInt(LastName.length)];
+        return nameFistName + " " + nameLastName;
     }
 
     public static String RamdomEmail() {

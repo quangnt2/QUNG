@@ -7,6 +7,8 @@ import com.example.qung.Helper.validation;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import static org.testng.Assert.fail;
 public class login {
     private WebDriver driver;
     private validation validation;
+    public WebDriverWait wait;
     loginElement element = new loginElement();
 
     public login(WebDriver driver) {
@@ -45,8 +48,6 @@ public class login {
     }
 
     public void loginAdmin(String User, String Pass) throws InterruptedException {
-        validation validation1 = new validation(driver);
-        WebElement searchBox = validation1.waitForElementToBeVisible(driver, 10, element.user);
         validation.setText(element.user, User);
         validation.setText(element.pass, Pass);
         validation.Click(element.submit);
@@ -101,13 +102,11 @@ public class login {
     }
 
     public void loginAcountInActive(String user, String pass) throws InterruptedException {
-        Thread.sleep(2000);
         validation.setText(element.user, user);
         validation.setText(element.pass, pass);
         validation.Click(element.submit);
-        Thread.sleep(2000);
         try {
-            WebElement elm = driver.findElement(element.swal2);
+            WebElement elm = wait.until(ExpectedConditions.visibilityOfElementLocated(element.swal2));
             if (elm.isDisplayed()) {
                 String getText = elm.getText();
                 System.out.println(getText);
@@ -126,7 +125,6 @@ public class login {
 
     public void checkValidation(String user, String pass) throws InterruptedException {
         try {
-            Thread.sleep(3000);
             validation.setText(element.user, user);
             validation.setText(element.pass, pass);
             validation.Click(element.submit);
@@ -142,8 +140,7 @@ public class login {
 
     public void checkStatusBtn() throws InterruptedException {
         navigateToLoginURL();
-        Thread.sleep(3000);
-        WebElement webElement = driver.findElement(element.submit);
+        WebElement webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(element.submit)) ;
         String aaa = webElement.getAttribute("disabled");
         System.out.println(aaa);
         if (webElement.isEnabled()) {

@@ -28,24 +28,19 @@ public class record {
     }
 
     public static void getUrl() {
+
         driver.get("http://103.138.113.158:9904/app/record/record-list");
     }
-
-
-    public void s() throws InterruptedException {
-        WebElement mess = driver.findElement(By.xpath("//div[@id='swal2-html-container']"));
-    }
-
-    public void checkButonInDetailRecord() throws InterruptedException {
+    public void checkButtonInDetailRecord() throws InterruptedException {
         String[] expected = {"Quay lại", "Xóa", "Sửa", "Gửi"};
         WebElement element = driver.findElement(recordElement.listButonInStatusDraft);
-        List<WebElement> laybel = element.findElements(By.tagName("button"));
+        List<WebElement> label = element.findElements(By.tagName("button"));
         Thread.sleep(4000);
         int countExpected = expected.length;  //4
-        int countActual = laybel.size();///4
+        int countActual = label.size();///4
         Assert.assertEquals(countExpected, countActual);
         for (int i = 1; i < expected.length; i++) {
-            WebElement getIndex = laybel.get(i);
+            WebElement getIndex = label.get(i);
             String getText = getIndex.getText();
             Assert.assertEquals(expected[i], getText);
         }
@@ -60,6 +55,7 @@ public class record {
         System.out.println(ThongBao);
         if (ThongBao.equals("Gửi thành công")) {
             System.out.println(ThongBao);
+            Assert.assertFalse(false);
         } else {
             Assert.assertFalse(false);
         }
@@ -81,7 +77,7 @@ public class record {
         return list;
     }
 
-    public void XoaHoSo() throws SQLException, InterruptedException {
+    public void XoaHoSo() throws InterruptedException {
         Thread.sleep(2000);
         validation.Click(recordElement.Xoa);
         WebElement element = driver.findElement(recordElement.PopupXacNhanXoa);
@@ -121,13 +117,14 @@ public class record {
         int index = random.nextInt(List.size());
         String name = List.get(index);
         validation.setText(recordElement.queryControl, name);
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         WebElement element = driver.findElement(By.xpath("//tbody/tr[1]/td[2]"));
         WebElement link = element.findElement(By.className("link"));
         link.click();
     }
 
     public void creadRecord() throws InterruptedException {
+        getUrl();
         Thread.sleep(2000);
         validation.Click(recordElement.createdBtn);
         validation.Click(recordElement.ChooserBaseUnit);

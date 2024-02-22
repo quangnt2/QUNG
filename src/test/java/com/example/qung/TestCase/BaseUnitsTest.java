@@ -20,7 +20,7 @@ public class BaseUnitsTest extends LoginClass {
     @Severity(SeverityLevel.CRITICAL)
     public void getURL() throws InterruptedException {
         login();
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         baseUnit.getURL();
     }
 
@@ -32,30 +32,40 @@ public class BaseUnitsTest extends LoginClass {
 
     @Test(priority = 2)
     @Severity(SeverityLevel.NORMAL)
-    public void search() throws SQLException {
+    public void search() throws SQLException, InterruptedException {
+        login();
+        Thread.sleep(3000);
+        baseUnit.getURL();
         baseUnit.searchBaseUint();
     }
-
     @Test(priority = 3)
+    @Severity(SeverityLevel.NORMAL)
+    public void search2() throws SQLException, InterruptedException {
+        login();
+        Thread.sleep(3000);
+        baseUnit.getURL();
+        baseUnit.SearchBaseUnitCreatedCurren_date();
+    }
+    @Test(priority = 4)
     @Severity(SeverityLevel.MINOR)
     public void clearDataFilter() throws SQLException, InterruptedException {
         baseUnit.clearfilter();
     }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     @Severity(SeverityLevel.TRIVIAL)
     public void getTitle() throws InterruptedException, SQLException {
         baseUnit.getTitle();
         baseUnit.getCountBaseUnit();
     }
 
-    @Test(priority = 5)
+    @Test(priority = 6)
     @Severity(SeverityLevel.CRITICAL)
     public void CreatedBaseUnit() throws InterruptedException, SQLException {
         baseUnit.createdBaseUnit();
     }
 
-    @Test(priority = 5)
+    @Test(priority = 7)
     @Severity(SeverityLevel.CRITICAL)
     public void DeleteBaseUnit() throws InterruptedException, SQLException {
         baseUnit.deleteBaseUnit();
