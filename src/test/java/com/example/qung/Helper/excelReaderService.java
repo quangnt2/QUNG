@@ -11,14 +11,14 @@ import java.util.List;
 public class excelReaderService {
     public static List<List<String>> readExcel(String excelFile) {
         DecimalFormat  decimalFormat = new DecimalFormat(); /// loại bỏ số thập phân
-        List<List<String>> data = new ArrayList<>();
+        List<List<String>> data = new ArrayList<>(); ///tạo 1 list chứa data sau khi xử lý
         try {
             File file = new File(excelFile);
-            Workbook workbook = WorkbookFactory.create(file);
-            Sheet sheet = workbook.getSheetAt(0);
-            int rowCount = sheet.getLastRowNum();
-            for (int i = 0; i <= rowCount; i++) {
-                Row row = sheet.getRow(i);
+            Workbook workbook = WorkbookFactory.create(file); /// khởi tạo file excecl 
+            Sheet sheet = workbook.getSheetAt(0);/// lấy seet đầu tiên của file excel
+            int rowCount = sheet.getLastRowNum(); /// lấy số hàng
+            for (int i = 0; i <= rowCount; i++) { /// tạo vòng lơp duyệt các cột các hàng 
+                Row row = sheet.getRow(i); 
                 int cellCount = row.getLastCellNum();
                 List<String> rowdata = new ArrayList<>();
                 for (int j = 0; j < cellCount; j++) {
